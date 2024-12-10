@@ -44,4 +44,26 @@ def show_notification(title, message, app_name):
             timeout=10
         )
     except Exception as e:
-        print(f"Ошибка отображения уведомления: {e}")    
+        print(f"Ошибка отображения уведомления: {e}")
+
+def main():
+    """Основная функция приложения."""
+    weather_data = get_weather_data(CITY, API_KEY, UNITS, LANG)
+    if weather_data is None:
+        return
+
+    parsed_data = parse_weather_data(weather_data)
+    if parsed_data is None:
+        return
+
+    temp = parsed_data["temp"]
+    feels_like = parsed_data["feels_like"]
+    description = parsed_data["description"]
+
+    message = f"Температура: {temp}°C\nОщущается как: {feels_like}°C\nОписание: {description}"
+    print(message)
+
+    show_notification(f"Погода в {CITY}", message, APP_NAME)
+
+if __name__ == "__main__":
+    main()
