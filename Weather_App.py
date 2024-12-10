@@ -19,3 +19,17 @@ def get_weather_data(city, api_key, units, lang):
     except requests.exceptions.RequestException as e:
         print(f"Ошибка запроса: {e}")
         return None
+
+def parse_weather_data(weather_data):
+    """Извлекает нужные данные из JSON ответа."""
+    if weather_data:
+        try:
+            return {
+                "temp": weather_data["main"]["temp"],
+                "feels_like": weather_data["main"]["feels_like"],
+                "description": weather_data["weather"][0]["description"],
+            }
+        except KeyError as e:
+            print(f"Ошибка парсинга данных: {e}")
+            return None
+    return None    
