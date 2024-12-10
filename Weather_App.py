@@ -32,4 +32,16 @@ def parse_weather_data(weather_data):
         except KeyError as e:
             print(f"Ошибка парсинга данных: {e}")
             return None
-    return None    
+    return None
+
+def show_notification(title, message, app_name):
+  
+    try:
+        notification.notify(
+            title=title,
+            message=message,
+            app_name=app_name,
+            timeout=10
+        )
+    except Exception as e:
+        print(f"Ошибка отображения уведомления: {e}")    
